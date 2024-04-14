@@ -1,7 +1,11 @@
 Projeto Full Stack Week Reserva de horário para barbearias
 Trabalhando com Nextjs, Prisma, PostgreSQL, Next-Auth, Shadcn, TailwindCSS
+<<<<<<< HEAD
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+=======
+ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+>>>>>>> 5f98a1904577966a0169695d8f170cabd177e6d0
 
 ## Getting Started
 

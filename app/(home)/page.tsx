@@ -11,7 +11,7 @@ export default async function Home() {
     // porque estamos usando o serverside
     const barbershops = await db.barbershop.findMany({})
     return (
-        <div className={`dark`}>
+        <div className={`dark mb-28`}>
             <Header />
             <div className="px-5 pt-5">
                 <h2 className="text-xl font-bold">Olá, Gustavo</h2>
@@ -28,6 +28,16 @@ export default async function Home() {
             </div>
             <div className="mt-6">
                 <h2 className="text-sm uppercase font-bold text-gray-400 mb-5 px-5">Recomendados</h2>
+                <div className="flex px-5 gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+                    {barbershops.map((barbershop) => {
+                        return (
+                            <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+                        )
+                    })}
+                </div>
+            </div>
+            <div className="mt-6">
+                <h2 className="text-sm uppercase font-bold text-gray-400 mb-5 px-5">Populares</h2>
                 <div className="flex px-5 gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
                     {barbershops.map((barbershop) => {
                         return (

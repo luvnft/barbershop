@@ -10,7 +10,19 @@ const authOptions: AuthOptions = {
             clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENTID as string,
             clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET as string
         })
-    ]
+    ],
+    callbacks: {
+        async session({ session, user }) {
+            session.user = { ...session.user, id: user.id } as {
+                id: string;
+                name: string;
+                email: string;
+
+            };
+            return session;
+        },
+    },
+    secret: process.env.SECRET
 }
 const handler = NextAuth(authOptions)
 

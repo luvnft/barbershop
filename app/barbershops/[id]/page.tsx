@@ -6,7 +6,7 @@ import Image from "next/image";
 import { BarbershopHeaderContent } from "./_components/barbershopHeaderContent";
 import ServiceItem from "./_components/serviceItem";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import authOptions from "@/app/api/auth/[...nextauth]/options";
 
 
 

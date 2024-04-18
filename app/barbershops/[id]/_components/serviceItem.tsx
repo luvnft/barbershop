@@ -19,8 +19,12 @@ interface ServiceItemsProps {
 }
 const ServiceItem = ({ service, isAuthenticated }: ServiceItemsProps) => {
     const [date, setDate] = useState<Date | undefined>(new Date())
-
+    const [hour, setHour] = useState<string | undefined>()
     const router = useRouter();
+    const handleHourClick = (time:string) => {
+        setHour(time);
+    }
+
     const handleBookingClick = () => {
         if (!isAuthenticated) {
             return signIn('google');
@@ -84,7 +88,7 @@ const ServiceItem = ({ service, isAuthenticated }: ServiceItemsProps) => {
                                         <div className=" flex overflow-x-auto gap-2 [&::-webkit-scrollbar]:hidden py-6 px-5 border-y border-solid border-secondary">
                                             {timeList.map((time) => {
                                                 return (
-                                                    <Button key={time} className={`text-white rounded-full bg-transparent border border-solid border-secondary`}>
+                                                    <Button onClick={handleHourClick(time)} key={time} variant={hour ==time? 'default' : 'outline'} className={`text-white rounded-full `}>
                                                         {time}
                                                     </Button>
                                                 )

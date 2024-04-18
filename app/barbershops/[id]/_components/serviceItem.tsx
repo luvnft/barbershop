@@ -21,7 +21,11 @@ const ServiceItem = ({ service, isAuthenticated }: ServiceItemsProps) => {
     const [date, setDate] = useState<Date | undefined>(new Date())
     const [hour, setHour] = useState<string | undefined>()
     const router = useRouter();
-    const handleHourClick = (time:string) => {
+    const handleDateClick = (date: Date | undefined) => {
+        setDate(date);
+        setHour(undefined)
+    }
+    const handleHourClick = (time: string | undefined) => {
         setHour(time);
     }
 
@@ -67,7 +71,7 @@ const ServiceItem = ({ service, isAuthenticated }: ServiceItemsProps) => {
                                     <Calendar
                                         mode="single"
                                         selected={date}
-                                        onSelect={setDate}
+                                        onSelect={handleDateClick}
                                         className="rounded-md border w-full lg-max-w-[100%] rdp-caption_start"
                                         locale={ptBR}
                                         fromDate={new Date()}
@@ -88,7 +92,7 @@ const ServiceItem = ({ service, isAuthenticated }: ServiceItemsProps) => {
                                         <div className=" flex overflow-x-auto gap-2 [&::-webkit-scrollbar]:hidden py-6 px-5 border-y border-solid border-secondary">
                                             {timeList.map((time) => {
                                                 return (
-                                                    <Button onClick={handleHourClick(time)} key={time} variant={hour ==time? 'default' : 'outline'} className={`text-white rounded-full `}>
+                                                    <Button onClick={() => { handleHourClick(time) }} key={time} variant={hour == time ? 'default' : 'outline'} className={`text-white rounded-full `}>
                                                         {time}
                                                     </Button>
                                                 )

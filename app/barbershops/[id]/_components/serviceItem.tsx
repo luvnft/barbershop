@@ -10,13 +10,16 @@ import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/app/_component
 import { Calendar } from "@/app/_components/ui/calendar";
 import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { ptBR } from "date-fns/locale";
+import { generateDayTimeList } from "../_helpers/hours";
 interface ServiceItemsProps {
     service: Service;
     isAuthenticated?: boolean;
 }
 const ServiceItem = ({ service, isAuthenticated }: ServiceItemsProps) => {
+    const [date, setDate] = useState<Date | undefined>(new Date())
+
     const router = useRouter();
     const handleBookingClick = () => {
         if (!isAuthenticated) {
@@ -26,7 +29,10 @@ const ServiceItem = ({ service, isAuthenticated }: ServiceItemsProps) => {
         // confirm('reservar')
 
     }
-    const [date, setDate] = useState<Date | undefined>(new Date())
+    const timeList = useMemo(() => {
+        return date ? generateDayTimeList(date) : [];
+    }, [date]);
+
     return (
         <Card>
             <CardContent className="p-3 w-full">
@@ -60,6 +66,7 @@ const ServiceItem = ({ service, isAuthenticated }: ServiceItemsProps) => {
                                         onSelect={setDate}
                                         className="rounded-md border w-full lg-max-w-[100%] rdp-caption_start"
                                         locale={ptBR}
+                                        fromDate={new Date()}
                                         styles={{
                                             head_cell: {
                                                 width: "100%",
@@ -73,6 +80,17 @@ const ServiceItem = ({ service, isAuthenticated }: ServiceItemsProps) => {
 
                                         }}
                                     />
+                                    {date && (
+                                        <div className=" flex overflow-x-auto gap-2 [&::-webkit-scrollbar]:hidden py-6 px-5 border-y border-solid border-secondary">
+                                            {timeList.map((time) => {
+                                                return (
+                                                    <Button key={time} className={`text-white rounded-full bg-transparent border border-solid border-secondary`}>
+                                                        {time}
+                                                    </Button>
+                                                )
+                                            })}
+                                        </div>
+                                    )}
                                 </SheetContent>
                             </Sheet>
 

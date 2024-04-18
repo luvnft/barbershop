@@ -8,12 +8,14 @@ import { db } from "../_lib/prisma"
 import BarbershopItem from "./_components/barberItem"
 import { ShowName } from "./_components/showname"
 
+
 export default async function Home() {
 
     //chamar prisma e chamar barbearia 
     // porque estamos usando o serverside
     const barbershops = await db.barbershop.findMany({})
     return (
+
         <div className={`dark mb-28`}>
             <Header />
             <div className="px-5 pt-5">
@@ -50,5 +52,6 @@ export default async function Home() {
                 </div>
             </div>
         </div>
+
     )
 }

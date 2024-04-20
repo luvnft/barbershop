@@ -1,5 +1,5 @@
 "use client"
-import { Barbershop, Service } from "@prisma/client";
+import { Barbershop, Booking, Service } from "@prisma/client";
 import Image from "next/image";
 import { Card, CardContent } from "@/app/_components/ui/card"
 import { Button } from "@/app/_components/ui/button";
@@ -10,11 +10,13 @@ import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from "@/a
 import { Calendar } from "@/app/_components/ui/calendar";
 import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ptBR } from "date-fns/locale";
 import { generateDayTimeList } from "../_helpers/hours";
 import { Loader2 } from "lucide-react"
 import { saveBooking } from "../_actions/save-bookings";
+import { toast } from "sonner";
+import { getDayBookings } from "../_actions/get-bookings";
 interface ServiceItemsProps {
     barbershop: Barbershop
     service: Service;
@@ -25,7 +27,20 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
     const [date, setDate] = useState<Date | undefined>(undefined)
     const [hour, setHour] = useState<string | undefined>()
     const [submitIsLoading, setSubmitIsLoading] = useState<boolean>(false)
+    const [sheetIsOpen, setSheetIsOpen] = useState(false);
+    const [dayBookings, setDayBookings] = useState<Booking[]>([])
+
     const router = useRouter();
+    useEffect(() => {
+        if (!date) {
+            return
+        }
+        const refreshAvailableHours = async () => {
+            const _dayBookings = await getDayBookings(date);
+            setDayBookings(_dayBookings);
+        }
+        refreshAvailableHours();
+    }, [date])
     const handleDateClick = (date: Date | undefined) => {
         setDate(date);
         setHour(undefined)
@@ -42,8 +57,29 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
 
     }
     const timeList = useMemo(() => {
-        return date ? generateDayTimeList(date) : [];
-    }, [date]);
+        if (!date) {
+            return []
+        }
+        return generateDayTimeList(date).filter(time => {
+            //time : "09:00"
+            //se houver alguma reserva em "daybookings" com a hora e minuto igual ao time não incluir
+            const timeHour = Number(time.split(":")[0]);
+            const timeMinutes = Number(time.split(":")[1]);
+
+            const booking = dayBookings.find((booking) => {
+                const bookingHour = booking.date.getHours();
+                const bookingMinutes = booking.date.getMinutes();
+                return bookingHour == timeHour && bookingMinutes == timeMinutes;
+            });
+            if (!booking) {
+                return true;
+            }
+
+            return false
+
+        })
+
+    }, [date, dayBookings]);
 
     const handleBookingSubmit = async () => {
         setSubmitIsLoading(true)
@@ -60,6 +96,18 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
                 barbershopId: barbershop.id,
                 date: newDate,
                 userId: (data.user as any).id
+            })
+            setSheetIsOpen(false)
+            setDate(undefined)
+            setHour(undefined)
+            toast("Reserva realizada com sucesso", {
+                description: `${format(newDate, "dd 'de' MMMM 'às' HH':'mm'.' ", { locale: ptBR })}`,
+                action: {
+                    label: 'Visualizar',
+                    onClick: () => {
+                        confirm('visualizar')
+                    }
+                }
             })
         } catch (error) {
             console.log(error)
@@ -83,7 +131,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
                                 style: 'currency',
                                 currency: 'BRL'
                             }).format(Number(service.price))}</p>
-                            <Sheet>
+                            <Sheet open={sheetIsOpen} onOpenChange={setSheetIsOpen}>
                                 <SheetTrigger asChild>
                                     <Button className="bg-secondary font-bold" onClick={handleBookingClick}>
                                         Reservar

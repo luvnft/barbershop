@@ -6,6 +6,7 @@ import AuthProvider from "./_providers/auth";
 import Head from 'next/head';
 const inter = Inter({ subsets: ["latin"] });
 import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
+import { Toaster } from "./_components/ui/sonner";
 export const metadata: Metadata = {
   title: "Barbershop",
   description: "HAHA",
@@ -38,6 +39,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </AuthProvider>
+        <Toaster />
         <script
           dangerouslySetInnerHTML={
             {

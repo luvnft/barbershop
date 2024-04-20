@@ -1,12 +1,12 @@
 "use client"
-import { Service } from "@prisma/client";
+import { Barbershop, Service } from "@prisma/client";
 import Image from "next/image";
 import { Card, CardContent } from "@/app/_components/ui/card"
 import { Button } from "@/app/_components/ui/button";
 import { intlFormat } from "date-fns";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/app/_components/ui/sheet";
+import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTrigger } from "@/app/_components/ui/sheet";
 import { Calendar } from "@/app/_components/ui/calendar";
 import { format } from "date-fns";
 import { DayPicker } from "react-day-picker";
@@ -14,11 +14,12 @@ import { useMemo, useState } from "react";
 import { ptBR } from "date-fns/locale";
 import { generateDayTimeList } from "../_helpers/hours";
 interface ServiceItemsProps {
+    barbershop: Barbershop
     service: Service;
     isAuthenticated?: boolean;
 }
-const ServiceItem = ({ service, isAuthenticated }: ServiceItemsProps) => {
-    const [date, setDate] = useState<Date | undefined>(new Date())
+const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps) => {
+    const [date, setDate] = useState<Date | undefined>(undefined)
     const [hour, setHour] = useState<string | undefined>()
     const router = useRouter();
     const handleDateClick = (date: Date | undefined) => {
@@ -41,6 +42,9 @@ const ServiceItem = ({ service, isAuthenticated }: ServiceItemsProps) => {
         return date ? generateDayTimeList(date) : [];
     }, [date]);
 
+    const handleSheetBookingClick = () => {
+        confirm('reservando')
+    }
     return (
         <Card>
             <CardContent className="p-3 w-full">
@@ -63,25 +67,26 @@ const ServiceItem = ({ service, isAuthenticated }: ServiceItemsProps) => {
                                     </Button>
                                 </SheetTrigger>
 
-                                <SheetContent className="p-0">
+                                <SheetContent className="p-0 h-full">
                                     <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
                                         <h1>Reservar</h1>
                                     </SheetHeader>
-                                    <style>{`.rdp-caption_start { width: 100%!important }`}</style>
+                                    <style>{`.rdp-caption_start { width: 100%!important } td{ border-radius:100%!important;background-color:inherit!important;}`}</style>
                                     <Calendar
                                         mode="single"
                                         selected={date}
                                         onSelect={handleDateClick}
-                                        className="rounded-md border w-full lg-max-w-[100%] rdp-caption_start"
+                                        className="rounded-md border-y w-full lg-max-w-[100%] rdp-caption_start"
                                         locale={ptBR}
                                         fromDate={new Date()}
+
                                         styles={{
                                             head_cell: {
                                                 width: "100%",
                                                 textTransform: "capitalize",
                                             },
                                             cell: { width: "100%" },
-                                            button: { width: "100%" },
+                                            button: { borderRadius: "100%" },
                                             nav_button_next: { width: '32px', height: '32px' },
                                             nav_button_previous: { width: '32px', height: '32px' },
                                             caption: { textTransform: "capitalize" }
@@ -99,6 +104,40 @@ const ServiceItem = ({ service, isAuthenticated }: ServiceItemsProps) => {
                                             })}
                                         </div>
                                     )}
+
+                                    <div className="py-3 px-5 border-t border-solid border-secondary">
+                                        <Card>
+                                            <CardContent className=" flex flex-col p-2 gap-2">
+                                                <div className="flex justify-between">
+                                                    <h2>{service.name}</h2>
+                                                    <span>{Intl.NumberFormat("pt-BR", {
+                                                        style: 'currency',
+                                                        currency: 'BRL'
+                                                    }).format(Number(service.price))}</span>
+                                                </div>
+                                                {date && (
+                                                    <div className="flex justify-between">
+                                                        <h1 className="text-gray-400 text-sm">Data</h1>
+                                                        <h4 className="text-sm">{format(date, "dd 'de' MMMM", { locale: ptBR })}</h4>
+                                                    </div>
+                                                )}
+                                                {hour && (
+                                                    <div className="flex justify-between">
+                                                        <h1 className="text-gray-400 text-sm">Horário</h1>
+                                                        <h4 className="text-sm">{hour}</h4>
+                                                    </div>
+                                                )}
+                                                <div className="flex justify-between">
+                                                    <h1 className="text-gray-400 text-sm">Barbearia</h1>
+                                                    <h4 className="text-sm text-gray-">{barbershop.name}</h4>
+                                                </div>
+
+                                            </CardContent>
+                                        </Card>
+                                    </div>
+                                    <SheetFooter className="relative w-full justify-center flex h-fit-content px-5">
+                                        <Button className="absolute w-[89%] bottom ">Reservar</Button>
+                                    </SheetFooter>
                                 </SheetContent>
                             </Sheet>
 

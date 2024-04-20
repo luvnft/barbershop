@@ -63,12 +63,12 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
                             <Sheet>
                                 <SheetTrigger asChild>
                                     <Button className="bg-secondary font-bold" onClick={handleBookingClick}>
-                                        Fazer Reservar
+                                        Reservar
                                     </Button>
                                 </SheetTrigger>
                                 {isAuthenticated && (<SheetContent className="p-0 h-full">
                                     <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
-                                        <h1>Reservar</h1>
+                                        <h1>Fazer Reservar</h1>
                                     </SheetHeader>
                                     <style>{`.rdp-caption_start { width: 100%!important } td{ border-radius:100%!important;background-color:inherit!important;}`}</style>
                                     <Calendar

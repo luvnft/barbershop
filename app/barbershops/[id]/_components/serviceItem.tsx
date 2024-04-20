@@ -62,12 +62,11 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
                             }).format(Number(service.price))}</p>
                             <Sheet>
                                 <SheetTrigger asChild>
-                                    <Button className="bg-secondary" onClick={handleBookingClick}>
-                                        Reservar
+                                    <Button className="bg-secondary font-bold" onClick={handleBookingClick}>
+                                        Fazer Reservar
                                     </Button>
                                 </SheetTrigger>
-
-                                <SheetContent className="p-0 h-full">
+                                {isAuthenticated && (<SheetContent className="p-0 h-full">
                                     <SheetHeader className="text-left px-5 py-6 border-b border-solid border-secondary">
                                         <h1>Reservar</h1>
                                     </SheetHeader>
@@ -76,7 +75,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
                                         mode="single"
                                         selected={date}
                                         onSelect={handleDateClick}
-                                        className="rounded-md border-y w-full lg-max-w-[100%] rdp-caption_start"
+                                        className="rounded-md border-y w-full lg-max-w-[100%] rdp-caption_start py-5"
                                         locale={ptBR}
                                         fromDate={new Date()}
 
@@ -135,10 +134,11 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
                                             </CardContent>
                                         </Card>
                                     </div>
-                                    <SheetFooter className="absolute w-full justify-center flex h-fit-content bottom-2 px-5 mt-3">
+                                    <SheetFooter className="absolute w-full justify-center flex h-fit-content bottom-3 px-5">
                                         <Button className=" px-5 w-full bottom">Reservar</Button>
                                     </SheetFooter>
-                                </SheetContent>
+                                </SheetContent>)}
+
                             </Sheet>
 
                         </div>

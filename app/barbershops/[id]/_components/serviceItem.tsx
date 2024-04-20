@@ -135,8 +135,8 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
                                             </CardContent>
                                         </Card>
                                     </div>
-                                    <SheetFooter className="relative w-full justify-center flex h-fit-content px-5">
-                                        <Button className="absolute w-[89%] px-5 bottom ">Reservar</Button>
+                                    <SheetFooter className="absolute w-full justify-center flex h-fit-content bottom-2 px-5 mt-3">
+                                        <Button className=" px-5 w-full bottom">Reservar</Button>
                                     </SheetFooter>
                                 </SheetContent>
                             </Sheet>

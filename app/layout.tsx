@@ -3,12 +3,11 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "./_components/footer";
 import AuthProvider from "./_providers/auth";
-
+import Head from 'next/head';
 const inter = Inter({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
   title: "Barbershop",
-  description: "Feito por Gustavo Borda @guh_borda",
+  description: "HAHA",
 };
 
 export default function RootLayout({
@@ -16,14 +15,38 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+
   return (
-    <html lang="en" className={`dark`}>
+    <html lang="pt-Br" className={`dark`}>
+      <Head>
+        <meta name="author" content="Gustavo Borda @guh_borda" />
+        <meta property='og:title' content='Barbershop Flax' />
+        <meta
+          property='og:description'
+          content='Agende seu corte nas melhores barbearias'
+        />
+        <meta property='og:url' content='https://barbershop-flas.vercel.app' />
+        <meta property='og:type' content='website' />
+        <link rel='icon' href='../public/logo.svg' />
+      </Head>
       <body className={inter.className}>
         <AuthProvider>
           {children}
           <Footer />
         </AuthProvider>
-        <script type="text/javascript" src="/static/clarity.js"></script>
+        <script
+          dangerouslySetInnerHTML={
+            {
+              __html: `
+              (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "lzbmnayw8r");`,
+            }}
+        />
       </body>
     </html>
   );

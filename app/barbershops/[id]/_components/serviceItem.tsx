@@ -16,7 +16,7 @@ import { generateDayTimeList } from "../_helpers/hours";
 import { Loader2 } from "lucide-react"
 import { saveBooking } from "../_actions/save-bookings";
 import { toast } from "sonner";
-import { getDayBookings } from "../_actions/get-bookings";
+import { getDayBookings } from "../_actions/get-day-bookings";
 interface ServiceItemsProps {
     barbershop: Barbershop
     service: Service;
@@ -36,7 +36,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
             return
         }
         const refreshAvailableHours = async () => {
-            const _dayBookings = await getDayBookings(date);
+            const _dayBookings = await getDayBookings(barbershop.id, date);
             setDayBookings(_dayBookings);
         }
         refreshAvailableHours();

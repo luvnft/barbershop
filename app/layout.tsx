@@ -5,6 +5,7 @@ import Footer from "./_components/footer";
 import AuthProvider from "./_providers/auth";
 import Head from 'next/head';
 const inter = Inter({ subsets: ["latin"] });
+import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
 export const metadata: Metadata = {
   title: "Barbershop",
   description: "HAHA",
@@ -30,17 +31,6 @@ export default function RootLayout({
         <meta property='og:url' content='https://barbershop-flas.vercel.app' />
         <meta property='og:type' content='website' />
         <link rel='icon' href='../public/logo.svg' />
-        <script
-          dangerouslySetInnerHTML={
-            {
-              __html: `
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-K4QXKWBK');`,
-            }}
-        />
       </Head>
       <body className={inter.className}>
 
@@ -59,6 +49,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             })(window, document, "clarity", "script", "lzbmnayw8r");`,
             }}
         />
+        <GoogleTagManager gtmId="GTM-K4QXKWBK" />
+        <GoogleAnalytics gaId="G-BJ24K2NVRJ" />
       </body>
     </html>
   );

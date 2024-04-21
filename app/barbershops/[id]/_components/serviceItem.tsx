@@ -101,13 +101,9 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
             setDate(undefined)
             setHour(undefined)
             toast("Reserva realizada com sucesso", {
+                className: 'justify-between',
                 description: `${format(newDate, "dd 'de' MMMM 'às' HH':'mm'.' ", { locale: ptBR })}`,
-                action: {
-                    label: 'Visualizar',
-                    onClick: () => {
-                        confirm('visualizar')
-                    }
-                }
+                action: <Button className={`bg-primary`} onClick={() => router.push('/bookings')}>Visualizar</Button>,
             })
         } catch (error) {
             console.log(error)

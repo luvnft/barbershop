@@ -5,6 +5,7 @@ import { Booking, Prisma } from "@prisma/client"
 import { format, isFuture } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
+import Image from "next/image";
 interface BookingItemProps {
     booking: Prisma.BookingGetPayload<{
         include: {
@@ -50,8 +51,52 @@ const BookingItem = ({ booking }: BookingItemProps) => {
             </SheetTrigger>
             <SheetContent>
                 <SheetHeader ><SheetTitle className="text-left">Informações da Reserva</SheetTitle></SheetHeader>
+                <div className={`relative w-full h-fit mt-5`}>
+                    <Card className="flex items-center justify-start">
+                        <CardContent className="flex items-center gap-2 px-5 py-5 justify-start">
+                            <Avatar>
+                                <AvatarImage src={booking.barbershop.imageUrl} />
+
+                            </Avatar>
+                            <div className="flex flex-col justify-start">
+                                <h1>{booking.barbershop.name}</h1>
+                                <span className="text-sm overflow-hidden text-ellipsis text-nowrap text-gray-400">{booking.barbershop.address}</span>
+                            </div>
+
+                        </CardContent>
+                    </Card>
+
+                </div>
+                <div className="py-3 ">
+                    <Card>
+                        <CardContent className=" flex flex-col p-2 gap-2">
+                            <div className="flex justify-between">
+                                <h2>{booking.service.name}</h2>
+                                <span>{Intl.NumberFormat("pt-BR", {
+                                    style: 'currency',
+                                    currency: 'BRL'
+                                }).format(Number(booking.service.price))}</span>
+                            </div>
+                            {booking.date && (
+                                <div className="flex justify-between">
+                                    <h1 className="text-gray-400 text-sm">Data</h1>
+                                    <h4 className="text-sm">{format(booking.date, "dd 'de' MMMM", { locale: ptBR })}</h4>
+                                </div>
+                            )}
+
+                            <div className="flex justify-between">
+                                <h1 className="text-gray-400 text-sm">Horário</h1>
+                                <h4 className="text-sm">{format(booking.date, "hh:mm", { locale: ptBR })}</h4>
+                            </div>
+
+
+
+
+                        </CardContent>
+                    </Card>
+                </div>
             </SheetContent>
-        </Sheet>
+        </Sheet >
     )
 }
 export default BookingItem

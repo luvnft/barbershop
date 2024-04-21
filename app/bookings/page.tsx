@@ -8,7 +8,6 @@ import { isFuture, isPast } from 'date-fns';
 
 
 const BookingsPage = async () => {
-    const _ = require('lodash');
     const session = await getServerSession(authOptions);
     if (!session?.user) {
         return redirect('/');

@@ -7,7 +7,7 @@ import { db } from '../_lib/prisma';
 import { isFuture, isPast } from 'date-fns';
 
 
-export const BookingsPage = async () => {
+const BookingsPage = async () => {
     const session = await getServerSession(authOptions);
     if (!session?.user) {
         return redirect('/');

@@ -42,8 +42,8 @@ export default async function Home() {
                 <Search />
             </div>
             <div className="mt-5">
-                {confirmedBookings.length > 0 ? '' : ''}
-                <div className={`flex justify-between px-5`}><h3 className=" text-sm uppercase font-bold text-gray-400 mb-5">Agendamentos</h3> <Link className="text-sm text-gray-400" href="/bookings">Ver tudo</Link></div>
+                {confirmedBookings.length > 0 ? (<div className={`flex justify-between px-5`}><h3 className=" text-sm uppercase font-bold text-gray-400 mb-5">Agendamentos</h3> <Link className="text-sm text-gray-400" href="/bookings">Ver tudo</Link></div>) : ''}
+
                 <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden px-5">
                     {confirmedBookings.map((booking) => {
                         return (

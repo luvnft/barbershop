@@ -16,17 +16,29 @@ export default async function Home() {
     const session = await getServerSession(authOptions)
     //chamar prisma e chamar barbearia 
     // porque estamos usando o serverside
-    const barbershops = await db.barbershop.findMany({})
-    const bookings = session?.user ? await db.booking.findMany({
-        where: {
-            userId: (session.user as any).id
-        },
-        include: {
-            service: true,
-            barbershop: true,
-        }
-    }) : [];
-    const confirmedBookings = bookings.filter(booking => isFuture(booking.date))
+    const [barbershops, recommendedBarbershops, confirmedBookings] = await Promise.all([
+        db.barbershop.findMany({}),
+        db.barbershop.findMany({
+            orderBy: {
+                id: "asc",
+            },
+        }),
+        session?.user
+            ? db.booking.findMany({
+                where: {
+                    userId: (session.user as any).id,
+                    date: {
+                        gte: new Date(),
+                    },
+                },
+                include: {
+                    service: true,
+                    barbershop: true,
+                },
+            })
+            : Promise.resolve([]),
+    ]);
+
 
     return (
 

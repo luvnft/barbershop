@@ -93,7 +93,10 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
             const newDate = setMinutes(setHours(date, formatedHour), formatedMins)
             const currentDate = new Date().getTime()
             const formingHour = new Date().setTime(Number(newDate));
-            if (formingHour >= currentDate) {
+            const openTime = new Date().setTime(9)
+            const closeTime = new Date().setTime(21)
+
+            if (formingHour >= currentDate && (formingHour < closeTime || formingHour > openTime)) {
 
 
                 await saveBooking({
@@ -111,7 +114,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
                     action: <Button className={`bg-primary`} onClick={() => router.push('/bookings')}>Visualizar</Button>,
                 })
             } else {
-               
+
 
                 setSheetIsOpen(false)
                 setDate(undefined)

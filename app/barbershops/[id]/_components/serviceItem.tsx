@@ -17,6 +17,7 @@ import { Loader2 } from "lucide-react"
 import { saveBooking } from "../_actions/save-bookings";
 import { toast } from "sonner";
 import { getDayBookings } from "../_actions/get-day-bookings";
+import { now } from "next-auth/client/_utils";
 interface ServiceItemsProps {
     barbershop: Barbershop
     service: Service;
@@ -91,20 +92,38 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
             const formatedMins = Number(hour.split(':')[1]);
             const newDate = setMinutes(setHours(date, formatedHour), formatedMins)
 
-            await saveBooking({
-                serviceId: service.id,
-                barbershopId: barbershop.id,
-                date: newDate,
-                userId: (data.user as any).id
-            })
-            setSheetIsOpen(false)
-            setDate(undefined)
-            setHour(undefined)
-            toast("Reserva realizada com sucesso", {
-                className: 'justify-between',
-                description: `${format(newDate, "dd 'de' MMMM 'às' HH':'mm'.' ", { locale: ptBR })}`,
-                action: <Button className={`bg-primary`} onClick={() => router.push('/bookings')}>Visualizar</Button>,
-            })
+            if ((date >= new Date().getDay()) && ((newDate >= new Date().getHours()) && (newDate < 21 || newDate > 9))) {
+                console.log(newDate)
+                console.log(date)
+                console.log(new Date().getHours())
+
+                await saveBooking({
+                    serviceId: service.id,
+                    barbershopId: barbershop.id,
+                    date: newDate,
+                    userId: (data.user as any).id
+                });
+                setSheetIsOpen(false)
+                setDate(undefined)
+                setHour(undefined)
+                toast("Reserva realizada com sucesso", {
+                    className: 'justify-between',
+                    description: `${format(newDate, "dd 'de' MMMM 'às' HH':'mm'.' ", { locale: ptBR })}`,
+                    action: <Button className={`bg-primary`} onClick={() => router.push('/bookings')}>Visualizar</Button>,
+                })
+            } else {
+                console.log('horário não permitido')
+                setSheetIsOpen(false)
+                setDate(undefined)
+                setHour(undefined)
+                toast("Data ou Horário não permitido", {
+                    className: 'justify-between',
+                    description: `${format(newDate, "dd 'de' MMMM 'às' HH':'mm'.' ", { locale: ptBR })}`,
+
+                })
+            }
+
+
         } catch (error) {
             console.log(error)
         } finally {

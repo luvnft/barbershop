@@ -91,11 +91,10 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
             const formatedHour = Number(hour.split(':')[0]);
             const formatedMins = Number(hour.split(':')[1]);
             const newDate = setMinutes(setHours(date, formatedHour), formatedMins)
+            const currentDate = new Date().getTime()
+            const formingHour = new Date().setTime(Number(newDate));
+            if (formingHour >= currentDate) {
 
-            if ((Number(date) >= Number(new Date().getDay())) && ((Number(newDate) >= Number(new Date().getHours())) && (Number(newDate) < 21 || Number(newDate) > 9))) {
-                console.log(newDate)
-                console.log(date)
-                console.log(new Date().getHours())
 
                 await saveBooking({
                     serviceId: service.id,
@@ -112,7 +111,8 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
                     action: <Button className={`bg-primary`} onClick={() => router.push('/bookings')}>Visualizar</Button>,
                 })
             } else {
-                console.log('horário não permitido')
+               
+
                 setSheetIsOpen(false)
                 setDate(undefined)
                 setHour(undefined)

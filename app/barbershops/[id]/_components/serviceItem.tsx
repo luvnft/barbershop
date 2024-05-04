@@ -95,6 +95,10 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
             const formingHour = new Date().setTime(Number(newDate));
             const openTime = new Date().setTime(9)
             const closeTime = new Date().setTime(21)
+            // const currentDay = new Date().getDate();
+            // const bkDay = new Date(date).getDay();
+            // console.log(bkDay);
+            // console.log(currentDay);
 
             if (formingHour >= currentDate && (formingHour < closeTime || formingHour > openTime)) {
 

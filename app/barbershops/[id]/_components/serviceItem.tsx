@@ -92,7 +92,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
             const formatedMins = Number(hour.split(':')[1]);
             const newDate = setMinutes(setHours(date, formatedHour), formatedMins)
 
-            if ((date >= new Date().getDay()) && ((newDate >= new Date().getHours()) && (newDate < 21 || newDate > 9))) {
+            if ((Number(date) >= Number(new Date().getDay())) && ((Number(newDate) >= Number(new Date().getHours())) && (Number(newDate) < 21 || Number(newDate) > 9))) {
                 console.log(newDate)
                 console.log(date)
                 console.log(new Date().getHours())

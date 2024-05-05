@@ -28,7 +28,7 @@ const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
                 <Search defaultValues={{
                     search: searchParams.search
                 }} />
-                <h1 className="text-gray-400 font-bold tex-xs uppercase">Resultados para "{searchParams.search}"</h1>
+                <h1 className="text-gray-400 font-bold tex-xs uppercase">Resultados para &quot;{searchParams.search}&quot;</h1>
 
                 <div className="flex gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden mt-5">
                     {

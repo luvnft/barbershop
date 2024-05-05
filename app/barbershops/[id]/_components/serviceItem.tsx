@@ -41,7 +41,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemsProps
             setDayBookings(_dayBookings);
         }
         refreshAvailableHours();
-    }, [date])
+    }, [date, barbershop.id])
     const handleDateClick = (date: Date | undefined) => {
         setDate(date);
         setHour(undefined)

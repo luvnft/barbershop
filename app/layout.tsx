@@ -10,6 +10,9 @@ import { Toaster } from "./_components/ui/sonner";
 export const metadata: Metadata = {
   title: "Barbershop",
   description: "Vamos agendar um corte hoje?",
+  icons: {
+    icon: "/icon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -31,7 +34,7 @@ export default function RootLayout({
         />
         <meta property='og:url' content='https://barbershop-flas.vercel.app' />
         <meta property='og:type' content='website' />
-        <link rel="icon" type="image/png" sizes="3any" href="favicon.ico" />
+        <link rel="icon" type="image/x-ico" sizes="3any" href="icon.ico" />
 
         <link rel="apple-touch-icon" sizes="180x180" href="../public/images/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="../public/images/favicon-32x32.png" />

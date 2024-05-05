@@ -9,7 +9,7 @@ import { GoogleAnalytics, GoogleTagManager } from '@next/third-parties/google'
 import { Toaster } from "./_components/ui/sonner";
 export const metadata: Metadata = {
   title: "Barbershop",
-  description: "HAHA",
+  description: "Vamos agendar um corte hoje?",
 };
 
 export default function RootLayout({
@@ -31,7 +31,13 @@ export default function RootLayout({
         />
         <meta property='og:url' content='https://barbershop-flas.vercel.app' />
         <meta property='og:type' content='website' />
-        <link rel='icon' href='../public/logo.svg' />
+        <link rel='icon' type="image/svg" href='../public/logo.svg' />
+        <link rel="apple-touch-icon" sizes="180x180" href="../public/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="../public/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="../public/favicon-16x16.png" />
+        <link rel="manifest" href="../public/site.webmanifest" />
+        <meta name="msapplication-TileColor" content="#603cba" />
+        <meta name="theme-color" content="#603cba" />
       </Head>
       <body className={inter.className}>
 

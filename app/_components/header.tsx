@@ -12,8 +12,8 @@ const Header = () => {
 
     return (
         <Card >
-            <CardContent className="py-8 px-5 justify-between flex flex-row">
-                <Image alt="logo" src="/logo.svg" height={22} width={120} />
+            <CardContent className="py-8 px-5 justify-between flex flex-row items-center">
+                <Link className="items-center" href="/"><Image alt="logo" src="/logo.svg" height={22} width={120} /></Link>
 
                 <Sheet>
                     <SheetTrigger asChild>

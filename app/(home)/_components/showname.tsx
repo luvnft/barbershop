@@ -4,6 +4,6 @@
 export const ShowName = () => {
     
     return (
-        <h2 className="text-xl font-bold">Olá, Vamos agendar um corte hoje?</h2>
+        <h2 className="text-xl font-bold">Hi, shall we book a haircut today?</h2>
     )
 }

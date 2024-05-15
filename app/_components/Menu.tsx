@@ -32,7 +32,7 @@ export const SideMenu = () => {
             ) : (
                 <div className="w-full justify-start px-5 py-6 items-center">
                     <div className="flex gap-1"><CircleUserRoundIcon /> 👋, log in!</div>
-                    <div className="mt-2"><Button variant="secondary" size="icon" className="flex w-full justify-start px-5 gap-3" onClick={handleLoginClick}><LogInIcon size={12} /> Faça seu login</Button></div>
+                    <div className="mt-2"><Button variant="secondary" size="icon" className="flex w-full justify-start px-5 gap-3" onClick={handleLoginClick}><LogInIcon size={12} /> Login</Button></div>
                 </div>
             )
             }

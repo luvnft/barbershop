@@ -36,7 +36,7 @@ const Search = ({defaultValues}:SearchProps) => {
                             <FormItem>
                                 <FormLabel />
                                 <FormControl>
-                                    <Input className="" placeholder="Busque por uma barbearia..." {...field} />
+                                    <Input className="" placeholder="Search for a hair stylist..." {...field} />
 
                                 </FormControl>
 

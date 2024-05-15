@@ -66,7 +66,7 @@ export default async function Home() {
                 </div>
             </div>
             <div className="mt-6">
-                <h2 className="text-sm uppercase font-bold text-gray-400 mb-5 px-5">Recomendados</h2>
+                <h2 className="text-sm uppercase font-bold text-gray-400 mb-5 px-5">🫶🏽 CO-SIGN</h2>
                 <div className="flex px-5 gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
                     {barbershops.map((barbershop) => {
                         return (
@@ -76,7 +76,7 @@ export default async function Home() {
                 </div>
             </div>
             <div className="mt-6">
-                <h2 className="text-sm uppercase font-bold text-gray-400 mb-5 px-5">Populares</h2>
+                <h2 className="text-sm uppercase font-bold text-gray-400 mb-5 px-5">🔥 TRENDING</h2>
                 <div className="flex px-5 gap-2 overflow-x-auto [&::-webkit-scrollbar]:hidden">
                     {recommendedBarbershops.map((barbershop) => {
                         return (

@@ -31,7 +31,7 @@ export const SideMenu = () => {
                 </div>
             ) : (
                 <div className="w-full justify-start px-5 py-6 items-center">
-                    <div className="flex gap-1"><CircleUserRoundIcon /> Olá, faça seu login!</div>
+                    <div className="flex gap-1"><CircleUserRoundIcon /> 👋, log in!</div>
                     <div className="mt-2"><Button variant="secondary" size="icon" className="flex w-full justify-start px-5 gap-3" onClick={handleLoginClick}><LogInIcon size={12} /> Faça seu login</Button></div>
                 </div>
             )
@@ -40,14 +40,14 @@ export const SideMenu = () => {
                 <Button variant="outline" className="justify-start w-full" asChild>
                     <Link href="/">
                         <HomeIcon size={18} className="mr-2" />
-                        Início
+                        Home
                     </Link>
                 </Button>
                 {data?.user && (
                     <Button variant="outline" className="justify-start w-full" asChild>
                         <Link href="/bookings">
                             <CalendarIcon size={18} className="mr-2" />
-                            Agendamentos
+                            Appointments
                         </Link>
                     </Button>
                 )}

@@ -10,8 +10,8 @@ import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
     search: z.string({
-        required_error: 'Campo obrigatório'
-    }).trim().min(1, "Campo obrigatório").max(50),
+        required_error: 'Required field'
+    }).trim().min(1, "Required field").max(50),
 })
 interface SearchProps {
     defaultValues?: z.infer<typeof formSchema>
